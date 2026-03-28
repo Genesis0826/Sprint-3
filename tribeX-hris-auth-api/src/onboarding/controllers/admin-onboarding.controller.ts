@@ -8,7 +8,7 @@ import { Roles } from '../../auth/roles.decorator';
 
 @ApiTags('System Admin Onboarding')
 @ApiBearerAuth()
-@Controller('tribe1/onboarding/v1/system-admin')
+@Controller('system-admin')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class AdminOnboardingController {
   constructor(private readonly onboardingService: OnboardingService) {}

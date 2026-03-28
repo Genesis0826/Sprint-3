@@ -6,7 +6,7 @@ import { CreateTemplateDto } from './dto/create-template.dto';
 export class OnboardingService {
   private readonly logger = new Logger(OnboardingService.name);
 
-  // --- TY'S METHODS ---
+  
   getEmployeeProgress(employeeId: string) {
     const tasks = [
       { id: '1', title: 'Review Handbook', status: 'pending', isRequired: true, type: 'confirm' },
@@ -14,7 +14,7 @@ export class OnboardingService {
       { id: '3', title: 'Equipment Proof', status: 'pending', isRequired: false, type: 'upload' }
     ];
 
-    //  Only calculate progress using REQUIRED tasks
+  
     const required = tasks.filter(t => t.isRequired);
     const completed = required.filter(t => t.status === 'approved' || t.status === 'confirmed').length;
     const progress = required.length > 0 ? Math.round((completed / required.length) * 100) : 0;
@@ -25,7 +25,7 @@ export class OnboardingService {
   uploadDocument(taskId: string, file: Express.Multer.File) {
     if (!file) throw new BadRequestException('No file uploaded.');
     
-    // Accepts PDFs for docs, JPG/PNG for equipment proof
+    
     if (!['application/pdf', 'image/jpeg', 'image/png'].includes(file.mimetype)) {
         throw new BadRequestException('Invalid file type. Only PDF, JPG, and PNG allowed.');
     }
@@ -40,7 +40,7 @@ export class OnboardingService {
     return { message: 'Task confirmed successfully', taskId, status: 'confirmed' };
   }
 
-  // --- KERR'S METHODS ---
+  
   getAllOnboardingEmployees() {
     return [{ id: 'mock-1', name: 'John Doe', progress: 50, status: 'In Progress' }];
   }

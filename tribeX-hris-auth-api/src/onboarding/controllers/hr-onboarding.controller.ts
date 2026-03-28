@@ -8,20 +8,20 @@ import { Roles } from '../../auth/roles.decorator';
 
 @ApiTags('HR Onboarding Management')
 @ApiBearerAuth()
-@Controller('tribe1/onboarding/v1/hr')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@Controller('hr')
+//@UseGuards(JwtAuthGuard, RolesGuard)
 export class HrOnboardingController {
   constructor(private readonly onboardingService: OnboardingService) {}
 
   @Get('applicants')
-  @Roles('HR_OFFICER')
+ // @Roles('HR_OFFICER')
   @ApiOperation({ summary: 'Get list of onboarding hires' })
   getOnboardingApplicants() {
     return this.onboardingService.getAllOnboardingEmployees(); 
   }
 
   @Patch('tasks/:taskId')
-  @Roles('HR_OFFICER')
+//  @Roles('HR_OFFICER')
   @ApiOperation({ summary: 'Approve/Reject submissions' })
   updateTaskStatus(@Param('taskId') taskId: string, @Body() dto: UpdateTaskStatusDto) {
     return this.onboardingService.updateTaskStatus(taskId, dto); 

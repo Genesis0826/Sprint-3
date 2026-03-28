@@ -9,13 +9,13 @@ import { Roles } from '../../auth/roles.decorator';
 
 @ApiTags('Applicant Onboarding')
 @ApiBearerAuth()
-@Controller('tribe1/onboarding/v1/applicant') 
-@UseGuards(JwtAuthGuard, RolesGuard)
+@Controller('applicant') 
+//@UseGuards(JwtAuthGuard, RolesGuard)
 export class ApplicantOnboardingController {
   constructor(private readonly onboardingService: OnboardingService) {}
 
   @Get('status')
-  @Roles('APPLICANT', 'INTERNAL_STAFF', 'EMPLOYEE') 
+  //@Roles('APPLICANT', 'INTERNAL_STAFF', 'EMPLOYEE') 
   @ApiOperation({ summary: 'Get current onboarding progress' })
   getStatus(@Req() req: any) {
     const applicantId = req.user?.id || 'mock-applicant-id'; 
@@ -23,7 +23,7 @@ export class ApplicantOnboardingController {
   }
 
   @Post('upload-document')
-  @Roles('APPLICANT', 'INTERNAL_STAFF', 'EMPLOYEE')
+  //@Roles('APPLICANT', 'INTERNAL_STAFF', 'EMPLOYEE')
   @ApiOperation({ summary: 'Upload a required document or equipment proof' })
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(FileInterceptor('file'))
@@ -32,7 +32,7 @@ export class ApplicantOnboardingController {
   }
 
   @Post('tasks/:taskId/confirm')
-  @Roles('APPLICANT', 'INTERNAL_STAFF', 'EMPLOYEE')
+  //@Roles('APPLICANT', 'INTERNAL_STAFF', 'EMPLOYEE')
   @ApiOperation({ summary: 'Confirm a text-based task (e.g., Review Handbook)' })
   confirmTask(@Param('taskId') taskId: string) {
     return this.onboardingService.confirmTask(taskId);
